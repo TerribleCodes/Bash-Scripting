@@ -13,7 +13,7 @@ then
 	git add .
 	echo "Enter a commit message: "
 	read message
-	git commit -m $message
+	git commit -m "$message"
 	git push
 elif [[ $proceed == 'n' ]]
 then
