@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# check whether user has entered exactly two arguments
+if [ $# -ne 2 ]
+then
+	echo "Usage: backup_script <source_directory> <target_directory>"
+	echo "Please try again"
+	exit 1
+fi
+
+# check rsync is installed
+if ! command -v rsync > /dev/null 2>&1
+then
+	echo "This script needs rsync package to be installed"
+	echo "Please use your distribution's package manager to install the package"
+	exit 2
+fi
+
+# capture the current data and store it as YYYY-MM-DD
+current_date=$(date +%Y-%m-%d)
+rsync_options="-avb --backup-dir $2/current_date --delete"
+$(which rsync) $rsync_options $1 $2/current >> backup_$current_date.log
